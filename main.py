@@ -1,4 +1,5 @@
 import pygame
+from game import Game
 pygame.init()
 
 # generate the game window
@@ -8,6 +9,9 @@ screen = pygame.display.set_mode((1080, 720))
 # game background
 background = pygame.image.load('assets/bg.jpg')
 
+# load the game
+game = Game()
+
 running = True
 
 # loop as long as this condition is true
@@ -15,6 +19,17 @@ while running:
 
     # apply game background
     screen.blit(background, (0, -200))
+
+    # apply my player image
+    screen.blit(game.player.image, game.player.rect)
+
+    # check if the players prefer to go left or right
+    if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
+        game.player.move_right()
+    elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
+        game.player.move_left()
+
+    print(game.player.rect.x)
 
     # update screen
     pygame.display.flip()
@@ -26,3 +41,8 @@ while running:
             running = False
             pygame.quit()
             print("Game Over")
+        # if a player releases a key on the keyboard
+        elif event.type == pygame.KEYDOWN:
+            game.pressed[event.key] = True
+        elif event.type == pygame.KEYUP:
+            game.pressed[event.key] = False
