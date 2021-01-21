@@ -27,8 +27,15 @@ while running:
     for projectile in game.player.all_projectiles:
         projectile.move()
 
+    # get the monsters from our game
+    for monster in game.all_monsters:
+        monster.forward()
+
     # apply all the images of my group of projectiles
     game.player.all_projectiles.draw(screen)
+
+    # apply the set of images of my monster group
+    game.all_monsters.draw(screen)
 
     # check if the players prefer to go left or right
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():

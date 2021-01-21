@@ -29,6 +29,11 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.x += self.velocity
         self.rotate()
 
+        # check if the projectile collided with a monster
+        if self.player.game.check_collision(self, self.player.game.all_monsters):
+            # delete the projectile
+            self.remove()
+
         # check if our projectiles are no longer present on the screen
         if self.rect.x > 1080:
             # remove the projectile (outside the screen)
