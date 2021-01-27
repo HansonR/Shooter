@@ -18,6 +18,20 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = 400
         self.rect.y = 500
 
+    def damage(self, amount):
+        if self.health - amount > amount:
+            self.health -= amount
+
+    def update_health_bar(self, surface):
+        # define the position of our life gauge as well as its width and thickness
+        bar_position = [self.rect.x + 50, self.rect.y + 20, self.health, 7]
+        # define the position of the background of our life gauge
+        back_bar_position = [self.rect.x + 50, self.rect.y + 20, self.max_health, 7]
+
+        # draw our life bar
+        pygame.draw.rect(surface, (60, 63, 60), back_bar_position)
+        pygame.draw.rect(surface, (111, 210, 46), bar_position)
+
     def launch_projectile(self):
         # create a new instance of the Projectile class
         self.all_projectiles.add(Projectile(self))

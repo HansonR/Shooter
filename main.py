@@ -23,6 +23,9 @@ while running:
     # apply my player image
     screen.blit(game.player.image, game.player.rect)
 
+    # refresh player life bar
+    game.player.update_health_bar(screen)
+
     # collect player projectiles
     for projectile in game.player.all_projectiles:
         projectile.move()
@@ -30,6 +33,7 @@ while running:
     # get the monsters from our game
     for monster in game.all_monsters:
         monster.forward()
+        monster.update_health_bar(screen)
 
     # apply all the images of my group of projectiles
     game.player.all_projectiles.draw(screen)
