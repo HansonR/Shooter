@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
         self.game = game
         self.health = 100
         self.max_health = 100
-        self.attack = 10
+        self.attack = 20
         self.velocity = 5
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.image.load('assets/player.png')
@@ -21,6 +21,9 @@ class Player(pygame.sprite.Sprite):
     def damage(self, amount):
         if self.health - amount > amount:
             self.health -= amount
+        else:
+            # If the player has no more life points
+            self.game.game_over()
 
     def update_health_bar(self, surface):
         # define the position of our life gauge as well as its width and thickness
